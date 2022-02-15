@@ -15,10 +15,22 @@ router.post("/register", async (req, res) => {
 
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(req.body.password, salt);
-
+        
+        const exUser = await User.findOne({
+            where: {
+              nickname: req.nickname
+            }
+          });
+        
+          if(exUser){
+            res.status(500).send({
+              message: "이미 존재하는 닉네임입니다."
+            });
+            return;
+          }
         const newUser = new User({
             username: req.body.username,
-            email: req.body.email,
+            nickname: req.body.nickname,
             password: hashedPass,
         });
 
@@ -45,16 +57,16 @@ router.post("/register", async (req, res) => {
 // LOGIN
 router.post("/login", async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.body.username });
+        const user = await User.findOne({ nickname: req.body.nickname });
         // user가 없거나 status(400)인 경우 
-        !user && res.status(400).json({ message: false });
+        !user && res.status(400).json({ message: "아직 가입하지 않으셨나요? 지금 가입하세요!" });
 
         const validated = await bcrypt.compare(req.body.password, user.password);
-        !validated && res.status(400).json({ message: false });
+        !validated && res.status(400).json({ message: "잘못된 비밀번호입니다." });
 
         // password를 제외한 나머지만 json으로 반환한다.
         // const { password, ...others } = user._doc;
-        res.status(200).json({ message: "로그인 되었습니다!", username: req.body.username });
+        res.status(200).json({ message: "로그인 되었습니다!", nickname: req.body.nickname });
         // res.status(200).json(user)
     } catch (err) {
         // res.status(500).json(err);

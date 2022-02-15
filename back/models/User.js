@@ -19,16 +19,22 @@ const UserSchema = new mongoose.Schema(
         username: {
             type: String,
             required: true,
-            unique: true,
+            unique: false, //본명 겹치는 경우
+            notNull: true,
+            notEmpty: true,
         },
-        email: {
+        nickname: {
             type: String,
             required: true,
-            unique: true,
+            unique: true, //닉네임 중복 비허용
+            notNull: true,
+            notEmpty: true,
         },
         password: {
             type: String,
             required: true,
+            notNull: true,
+            notEmpty: true,  //not null, not empty 추가
         },
         // profilePic: {
         //     type: String,
