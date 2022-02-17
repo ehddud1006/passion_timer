@@ -54,15 +54,15 @@ function Datedd2({ category }) {
   // {pathname: '/posts/', search: '?user=kdyUpdated', hash: '', state: undefined}
 
   var rankFirst = {
-    name: "undefinded",
+    nickname: "undefinded",
     time: "undefinded",
   };
   var rankSecond = {
-    name: "undefinded",
+    nickname: "undefinded",
     time: "undefinded",
   };
   var rankThird = {
-    name: "undefinded",
+    nickname: "undefinded",
     time: "undefinded",
   };
   console.log("DADADA");
@@ -117,23 +117,23 @@ function Datedd2({ category }) {
   // 자신의 현재랭킹
   var myRank = 0;
   var name = $.cookie("login_cookie");
-  console.log(name);
-  if (name) {
+  console.log(nickname);
+  if (nickname) {
     // consolThird("have")
     pposts.map((p, i) => {
       // console.log(p.username)
       if (i == 0 && (p.hour != 0 || p.minute != 0 || p.second != 0)) {
-        rankFirst.name = p.username;
+        rankFirst.name = p.nickname;
         rankFirst.time = prize(p);
       } else if (i == 1 && (p.hour != 0 || p.minute != 0 || p.second != 0)) {
-        rankSecond.name = p.username;
+        rankSecond.name = p.nickname;
         rankSecond.time = prize(p);
       } else if (i == 2 && (p.hour != 0 || p.minute != 0 || p.second != 0)) {
-        rankThird.name = p.username;
+        rankThird.name = p.nickname;
         rankThird.time = prize(p);
       }
 
-      if (p.username === name) {
+      if (p.nickname === nickname) {
         myRank = i + 1;
       }
     });
@@ -141,13 +141,13 @@ function Datedd2({ category }) {
     pposts.map((p, i) => {
       // console.log(p.username)
       if (i == 0 && (p.hour != 0 || p.minute != 0 || p.second != 0)) {
-        rankFirst.name = p.username;
+        rankFirst.name = p.nickname;
         rankFirst.time = prize(p);
       } else if (i == 1 && (p.hour != 0 || p.minute != 0 || p.second != 0)) {
-        rankSecond.name = p.username;
+        rankSecond.name = p.nickname;
         rankSecond.time = prize(p);
       } else if (i == 2 && (p.hour != 0 || p.minute != 0 || p.second != 0)) {
-        rankThird.name = p.username;
+        rankThird.name = p.nickname;
         rankThird.time = prize(p);
       }
     });
@@ -173,17 +173,17 @@ function Datedd2({ category }) {
         <div className="priceCenter">
           <div className="set">
             <img className="priceImg" src={Second} alt="" />
-            <p className="winner">{rankSecond.name}</p>
+            <p className="winner">{rankSecond.nickname}</p>
             <p className="winnerTime">{rankSecond.time}</p>
           </div>
           <div className="set">
             <img className="priceImg" src={First} alt="" />
-            <p className="winner">{rankFirst.name}</p>
+            <p className="winner">{rankFirst.nickname}</p>
             <p className="winnerTime">{rankFirst.time}</p>
           </div>
           <div className="set">
             <img className="priceImg" src={Third} alt="" />
-            <p className="winner">{rankThird.name}</p>
+            <p className="winner">{rankThird.nickname}</p>
             <p className="winnerTime">{rankThird.time}</p>
           </div>
         </div>
@@ -429,6 +429,18 @@ function Datedd2({ category }) {
             <Link to="/ja" className="link">
               <i className="bottomIcon2 far fa-credit-card "></i>
               <p className="bottomText">누적랭킹</p>
+            </Link>
+          )}
+
+          {category === "마이페이지" ? (
+            <Link to="/mypage" className="link">
+              <i className="bottomIcon2 far fa-solid fa-circle-user dada"></i>
+              <p className="bottomText dada">마이페이지</p>
+            </Link>
+          ) : (
+            <Link to="/mypage" className="link">
+              <i className="bottomIcon2 far fa-solid fa-circle-user"></i>
+              <p className="bottomText">마이페이지</p>
             </Link>
           )}
 

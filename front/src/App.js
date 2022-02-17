@@ -27,6 +27,10 @@ function App() {
           <TopBar category={"누적"}></TopBar>
           <TotalDate category={"누적"}></TotalDate>
         </Route>
+        <Route path="/mypage">
+          <TopBar category={"마이페이지"}></TopBar>
+          <Mypage category={"마이페이지"}></Mypage>
+        </Route>
         {/* <Route path="/dae">
           <TopBar category={"대학생"}></TopBar>
           <Date category={"대학생"}></Date>

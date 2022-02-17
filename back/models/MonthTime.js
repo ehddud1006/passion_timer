@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const TimeSchema = new mongoose.Schema(
     {
-        username: {
+        usernickname: {
             type: String,
             required: true,
             unique: true,

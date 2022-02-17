@@ -13,7 +13,7 @@ function getCurrentDate() {
 }
 const TotalSchema = new mongoose.Schema(
     {
-        username: {
+        usernickname: {
             type: String,
             required: true,
             unique: true,
