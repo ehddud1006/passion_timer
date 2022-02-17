@@ -42,6 +42,7 @@ function Study() {
   //   console.log(name);
   const [check, setCheck] = useState(true);
   const [check2, setCheck2] = useState(true);
+  const [finish, setFinish] = useState(false);
   const [time, setTime] = useState(0);
   const [id, setId] = useState("");
   const [weekid, setweekId] = useState("");
@@ -113,6 +114,7 @@ function Study() {
       // status: 200
       // statusText: "OK"
       // [[Prototype]]: Object
+      setFinish(true);
     };
     fetchPosts();
   }, []);
@@ -334,28 +336,33 @@ function Study() {
   //   console.log(check);
   return (
     <div>
-      <div className="passion">
-        <div>공부하기싫을때, 남들도 하기싫다.</div>
-        <div>그때하는 것이 경쟁력이다.</div>
-        <div id="webcam-container"></div>
-        <div id="label-container"></div>
-        <div className="btngroup">
-          {check ? (
-            <button type="button" onClick={init}>
-              Start
-            </button>
-          ) : (
-            <div></div>
-          )}
-          {check2 ? (
-            <button type="button" onClick={Submit}>
-              기록저장
-            </button>
-          ) : (
-            <div></div>
-          )}
+      {finish ? (
+        <div className="passion">
+          <div>공부하기싫을때, 남들도 하기싫다.</div>
+          <div>그때하는 것이 경쟁력이다.</div>
+          <div id="webcam-container"></div>
+          <div id="label-container"></div>
+          <div className="btngroup">
+            {check ? (
+              <button type="button" onClick={init}>
+                Start
+              </button>
+            ) : (
+              <div></div>
+            )}
+            {check2 ? (
+              <button type="button" onClick={Submit}>
+                기록저장
+              </button>
+            ) : (
+              <div></div>
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div></div>
+      )}
+
       <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
       <script

@@ -14,13 +14,15 @@ function getCurrentDate() {
   var minutes = date.getMinutes();
   var seconds = date.getSeconds();
   var milliseconds = date.getMilliseconds();
-  return new Date(Date.UTC(year, month, today, hours, minutes, seconds, milliseconds));
+  return new Date(
+    Date.UTC(year, month, today, hours, minutes, seconds, milliseconds)
+  );
 }
 //changed all 'username' => 'usernickname'
 router.post("/", async (req, res) => {
-  var usernickname = req.body.usernickname;
-  console.log(req.body);
-  console.log("plz");
+  var username = req.body.username;
+  // console.log(req.body);
+  // console.log("plz");
   try {
     var time;
     if (usernickname) {
@@ -33,9 +35,9 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/week", async (req, res) => {
-  var usernickname = req.body.usernickname;
-  console.log(req.body);
-  console.log("plz");
+  var username = req.body.username;
+  // console.log(req.body);
+  // console.log("plz");
   try {
     var weektime;
     if (usernickname) {
@@ -48,9 +50,10 @@ router.post("/week", async (req, res) => {
 });
 
 router.post("/total", async (req, res) => {
-  var usernickname = req.body.usernickname;
-  console.log(req.body);
-  console.log("total");
+
+  var username = req.body.username;
+  // console.log(req.body);
+  // console.log("total");
   try {
     var totaltime;
     if (usernickname) {
@@ -73,7 +76,7 @@ router.put("/submit", async (req, res) => {
         const updatedTime = await Time.findByIdAndUpdate(
           req.body.id,
           {
-            $set: { time: req.body.time, updatedAt: getCurrentDate() },
+            $set: { time: req.body.time },
           },
           { new: true }
         );
@@ -91,32 +94,37 @@ router.put("/submit", async (req, res) => {
 
 router.put("/submit2", async (req, res) => {
   try {
-    console.log("dad" + req.body.id)
+    // console.log("dad" + req.body.id);
     // console.log(getCurrentDate())
     // console.log(new Date())
     const weektime = await WeekTime.findById(req.body.id);
-    console.log(weektime)
-    if (weektime.usernickname === req.body.usernickname) {
+
+    // console.log(weektime);
+    if (weektime.username === req.body.username) {
       try {
-        goodH = weektime.hour + req.body.hour
-        goodM = weektime.minute + req.body.minute
-        goodS = weektime.second + req.body.second
+        goodH = weektime.hour + req.body.hour;
+        goodM = weektime.minute + req.body.minute;
+        goodS = weektime.second + req.body.second;
 
         if (goodM >= 60) {
-          let a = parseInt(goodM / 60)
-          goodH += a
-          goodM -= a * 60
+          let a = parseInt(goodM / 60);
+          goodH += a;
+          goodM -= a * 60;
         }
 
         if (goodS >= 60) {
-          let a = parseInt(goodS / 60)
-          goodM += a
-          goodS -= a * 60
+          let a = parseInt(goodS / 60);
+          goodM += a;
+          goodS -= a * 60;
         }
         const updatedWeekTime = await WeekTime.findByIdAndUpdate(
           req.body.id,
           {
-            $set: { hour: goodH, minute: goodM, second: goodS, updatedAt: getCurrentDate() },
+            $set: {
+              hour: goodH,
+              minute: goodM,
+              second: goodS,
+            },
           },
           { new: true }
         );
@@ -134,33 +142,43 @@ router.put("/submit2", async (req, res) => {
 
 router.put("/submit3", async (req, res) => {
   try {
-    console.log("total" + req.body.id)
-    console.log("total" + req.body.second)
+    console.log(req.body.hours);
+    console.log(req.body.minute);
+    console.log(req.body.second);
+
+    // console.log("total" + req.body.id);
+    // console.log("total" + req.body.second);
     // console.log(getCurrentDate())
     // console.log(new Date())
     const totaltime = await TotalTime.findById(req.body.id);
-    // console.log(totaltime)
-    if (totaltime.usernickname === req.body.usernickname) {
+    console.log(
+      `totaltime.second: ${totaltime.second} req.body.second: ${req.body.second}`
+    );
+    if (totaltime.username === req.body.username) {
       try {
-        goodH = totaltime.hour + req.body.hour
-        goodM = totaltime.minute + req.body.minute
-        goodS = totaltime.second + req.body.second
+        goodH = totaltime.hour + req.body.hour;
+        goodM = totaltime.minute + req.body.minute;
+        goodS = totaltime.second + req.body.second;
 
         if (goodM >= 60) {
-          let a = parseInt(goodM / 60)
-          goodH += a
-          goodM -= a * 60
+          let a = parseInt(goodM / 60);
+          goodH += a;
+          goodM -= a * 60;
         }
 
         if (goodS >= 60) {
-          let a = parseInt(goodS / 60)
-          goodM += a
-          goodS -= a * 60
+          let a = parseInt(goodS / 60);
+          goodM += a;
+          goodS -= a * 60;
         }
         const updatedtotalTime = await TotalTime.findByIdAndUpdate(
           req.body.id,
           {
-            $set: { hour: goodH, minute: goodM, second: goodS, updatedAt: getCurrentDate() },
+            $set: {
+              hour: goodH,
+              minute: goodM,
+              second: goodS,
+            },
           },
           { new: true }
         );
@@ -178,7 +196,7 @@ router.put("/submit3", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    console.log("www")
+    // console.log("www");
     let posts;
     posts = await Time.find();
     res.status(200).json(posts);
@@ -189,7 +207,7 @@ router.get("/", async (req, res) => {
 
 router.get("/total", async (req, res) => {
   try {
-    console.log("DADADADAVVVV")
+    // console.log("DADADADAVVVV");
     let posts;
     posts = await TotalTime.find();
     res.status(200).json(posts);
@@ -197,6 +215,5 @@ router.get("/total", async (req, res) => {
     res.status(500).json(err);
   }
 });
-
 
 module.exports = router;

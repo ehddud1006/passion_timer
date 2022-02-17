@@ -87,24 +87,42 @@ function Datedd({ category }) {
     };
     fetchPosts();
   }, []);
-
+  // var a = new Date();
+  // var b = new Date();
+  var KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+  // console.log(a.getTime());
+  // console.log(b.setTime(a.getTime()));
+  // console.log(new Date(a.getTime() - KR_TIME_DIFF));
   // console.log(posts);
   let pposts = posts;
-
+  pposts.map((p) => console.log(p));
   pposts.map((p, i) => {
     // console.log(typeof getCurrentDate())
     // console.log(JSON.stringify(getCurrentDate()))
     // console.log(new Date(p.updatedAt).getTime() + (9 * 3600000))
-    if (new Date(p.updatedAt).toDateString() != new Date().toDateString()) {
+    console.log(p.username);
+    console.log(p.updatedAt);
+    var a = new Date();
+    // console.log(new Date());
+    // console.log(new Date(p.updatedAt).toDateString());
+    // console.log(new Date().toDateString());
+    // console.log(getCurrentDate().toDateString());
+    console.log(new Date(p.updatedAt).toDateString());
+    console.log(new Date(a.getTime() - KR_TIME_DIFF).toDateString());
+    if (
+      new Date(p.updatedAt).toDateString() !=
+      new Date(a.getTime() - KR_TIME_DIFF).toDateString()
+    ) {
       p.time = 0;
     }
   });
 
+  pposts.map((p) => console.log(p));
   pposts = pposts.sort(function (a, b) {
     return b.time - a.time;
   });
   // console.log(pposts);
-  // pposts.map((p) => console.log(p));
+  pposts.map((p) => console.log(p));
   var objectLength = Object.keys(pposts).length;
   // console.log("leng " + objectLength)
 
